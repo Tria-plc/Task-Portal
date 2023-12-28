@@ -2,9 +2,10 @@
   "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
   "solution": {
     "name": "task-portal-client-side-solution",
-    "id": "356c05cd-282c-4bfc-bf7b-dcef7443d38e",
+    "id": "f2e28cee-53df-4377-b55f-1e00d98e85ff",
     "version": "1.0.0.0",
-    "includeClientSideAssets": true
+    "includeClientSideAssets": true,
+    "skipFeatureDeployment": true
   },
   "paths": {
     "zippedPackage": "solution/task-portal.sppkg"

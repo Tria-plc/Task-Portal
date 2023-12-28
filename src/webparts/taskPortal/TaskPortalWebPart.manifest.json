@@ -1,6 +1,6 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/spfx/client-side-web-part-manifest.schema.json",
-  "id": "a907b3d3-a8ec-4048-bc87-c19a193134b5",
+  "id": "8e78fd01-05e0-4cdb-9ba0-2a31be29a82f",
   "alias": "TaskPortalWebPart",
   "componentType": "WebPart",
 
@@ -13,14 +13,16 @@
   // https://support.office.com/en-us/article/Turn-scripting-capabilities-on-or-off-1f2c515f-5d7e-448a-9fd7-835da935584f
   "requiresCustomScript": false,
 
-  "preconfiguredEntries": [{
-    "groupId": "5c03119e-3074-46fd-976b-c60198311f70", // Other
-    "group": { "default": "Other" },
-    "title": { "default": "TaskPortal" },
-    "description": { "default": "TaskPortal description" },
-    "officeFabricIconFontName": "Page",
-    "properties": {
-      "description": "TaskPortal"
+  "preconfiguredEntries": [
+    {
+      "groupId": "5c03119e-3074-46fd-976b-c60198311f70", // Other
+      "group": { "default": "Other" },
+      "title": { "default": "TaskPortal" },
+      "description": { "default": "TaskPortal description" },
+      "officeFabricIconFontName": "Page",
+      "properties": {
+        "description": "TaskPortal"
+      }
     }
-  }]
+  ]
 }

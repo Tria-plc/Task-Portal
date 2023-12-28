@@ -3,8 +3,9 @@ import { Table } from "antd";
 
 import TaskServices from "../services/TaskServices";
 import { TaskColumns } from "./TaskColumns";
+import { WebPartContext } from "@microsoft/sp-webpart-base";
 export interface ITasksProps {
-  listId: any;
+  context: WebPartContext;
 }
 
 export interface ITasksState {
@@ -22,7 +23,10 @@ class Tasks extends React.Component<ITasksProps, ITasksState> {
     };
   }
 
-  public taskService = new TaskServices(this.props.listId);
+  public taskService = new TaskServices(
+    this.props.context,
+    "Form Associated Tasks"
+  );
 
   public componentDidMount(): void {
     this.setState({
@@ -31,12 +35,16 @@ class Tasks extends React.Component<ITasksProps, ITasksState> {
 
     const viewFields = `<ViewFields>
                           <FieldRef Name='Id' />
+                          <FieldRef Name='AssignedToId' />
                           <FieldRef Name='Created' />
-                          <FieldRef Name='TaskStatus' />
-                          <FieldRef Name='Reassign_x0020_Remark' />
+                          <FieldRef Name='Status' />
+                          <FieldRef Name='Body' />
+                          <FieldRef Name='Form_Link' />
+                          <FieldRef Name='ParentItemId' />
+                          <FieldRef Name='ParentListName' />
                         </ViewFields>`;
     this.taskService.getItems(null, viewFields).then((tasks) => {
-      this.setState({ tasks, isLoading: false });
+      this.setState({ tasks: tasks.d.results, isLoading: false });
     });
   }
 
@@ -47,7 +55,7 @@ class Tasks extends React.Component<ITasksProps, ITasksState> {
   public render() {
     return (
       <Table
-        columns={TaskColumns}
+        columns={TaskColumns(this.taskService, this.props.context)}
         dataSource={this.state.tasks}
         loading={this.state.isLoading}
         rowClassName={this.rowClassNameFn}

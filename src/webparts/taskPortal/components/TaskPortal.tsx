@@ -1,6 +1,7 @@
 import * as React from "react";
 import { ITaskPortalProps } from "./ITaskPortalProps";
 import Tasks from "./Tasks";
+import "./main.css";
 
 export interface ITaskPortalState {}
 
@@ -12,7 +13,7 @@ export default class TaskPortal extends React.Component<
   public render(): React.ReactElement<ITaskPortalProps> {
     return (
       <div>
-        <Tasks listId={this.props.listId} />
+        <Tasks context={this.props.context} />
       </div>
     );
   }
