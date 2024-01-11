@@ -35,7 +35,9 @@ class Tasks extends React.Component<ITasksProps, ITasksState> {
 
     const viewFields = `<ViewFields>
                           <FieldRef Name='Id' />
+                          <FieldRef Name='Title' />
                           <FieldRef Name='AssignedToId' />
+                          <FieldRef Name='AssignedTo' />
                           <FieldRef Name='Created' />
                           <FieldRef Name='Status' />
                           <FieldRef Name='Body' />

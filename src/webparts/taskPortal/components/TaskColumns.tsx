@@ -12,13 +12,6 @@ export const TaskColumns = (service: TaskServices, context) => [
     },
   },
   {
-    title: "Message",
-    dataIndex: "Message",
-    render: (text, props) => {
-      return props.u36w;
-    },
-  },
-  {
     title: "Date",
     dataIndex: "Created",
     render: (text, props) => {
@@ -29,6 +22,7 @@ export const TaskColumns = (service: TaskServices, context) => [
     title: "Task Status",
     dataIndex: "Status",
     render: (text, props) => {
+      console.log(props);
       return renderStatus(props.Status);
     },
   },

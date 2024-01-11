@@ -1,7 +1,9 @@
 import { Button } from "antd";
 import * as React from "react";
-import TaskServices from "../services/TaskServices";
 import { WebPartContext } from "@microsoft/sp-webpart-base";
+import { Popconfirm } from "antd";
+
+import TaskServices from "../services/TaskServices";
 export interface ITaskColumnsButtonsProps {
   data: any;
   service: TaskServices;
@@ -12,26 +14,24 @@ class TaskColumnsButtons extends React.Component<
   ITaskColumnsButtonsProps,
   any
 > {
-  updateParentItemDetail = () => {
-    this.props.service
-      .updateItem(
-        this.props.data.ParentListName,
-        {
-          CurrentTaskId: this.props.data.Id,
-        },
-        this.props.data.ParentItemId
-      )
-      .then(() => {});
+  updateParentItemDetail = async () => {
+    await this.props.service.updateItem(
+      this.props.data.ParentListName,
+      {
+        CurrentTaskId: this.props.data.Id,
+      },
+      this.props.data.ParentItemId
+    );
   };
 
   claimTask = () => {
     this.props.service
       .updateItem(
-        this.props.data.ParentListName,
+        "Form Associated Tasks",
         {
           AssignedToId: this.props.context.pageContext.legacyPageContext.userId,
         },
-        this.props.data.ParentItemId
+        this.props.data.Id
       )
       .then(() => {
         window.location.reload();
@@ -39,8 +39,10 @@ class TaskColumnsButtons extends React.Component<
   };
 
   onOpenButtonClick = () => {
+    (async () => {
+      await this.updateParentItemDetail();
+    })();
     window.open(this.props.data.Form_Link.Url);
-    this.updateParentItemDetail();
   };
 
   public render() {
@@ -54,11 +56,17 @@ class TaskColumnsButtons extends React.Component<
           >
             Open
           </Button>
+
           {this.props.data.AssignedToId !==
             this.props.context.pageContext.legacyPageContext.userId && (
-            <Button type="ghost" onClick={this.claimTask}>
-              Claim
-            </Button>
+            <Popconfirm
+              title="Are you sure？"
+              okText="Yes"
+              cancelText="No"
+              onConfirm={this.claimTask}
+            >
+              <Button>Claim</Button>
+            </Popconfirm>
           )}
         </div>
       )
