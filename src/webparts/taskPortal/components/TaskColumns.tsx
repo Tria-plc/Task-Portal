@@ -8,7 +8,8 @@ export const TaskColumns = (service: TaskServices, context) => [
     title: "Title",
     dataIndex: "Title",
     render: (text, props) => {
-      return props.Title;
+      // return props.Title;
+      return props.Message?props.Message:props.u36w;
     },
   },
   {

@@ -12,7 +12,7 @@ export default class TaskPortal extends React.Component<
   public componentDidMount(): void {}
   public render(): React.ReactElement<ITaskPortalProps> {
     return (
-      <div>
+      <div className="w-100">
         <Tasks context={this.props.context} />
       </div>
     );

@@ -12,8 +12,17 @@ export interface ITaskColumnsButtonsProps {
 
 class TaskColumnsButtons extends React.Component<
   ITaskColumnsButtonsProps,
-  any
+  {openLoading:boolean}
 > {
+
+  public constructor(props) {
+    super(props);
+
+    this.state = {
+      openLoading:false
+    };
+  }
+
   updateParentItemDetail = async () => {
     await this.props.service.updateItem(
       this.props.data.ParentListName,
@@ -42,7 +51,14 @@ class TaskColumnsButtons extends React.Component<
     (async () => {
       await this.updateParentItemDetail();
     })();
-    window.open(this.props.data.Form_Link.Url);
+
+    this.setState({ openLoading: true });
+
+    setTimeout(() => {
+      this.setState({ openLoading: false },()=>{
+        window.open(this.props.data.Form_Link.Url);
+      });
+    }, 3000);
   };
 
   public render() {
@@ -53,6 +69,7 @@ class TaskColumnsButtons extends React.Component<
             type="primary"
             onClick={this.onOpenButtonClick}
             style={{ marginRight: "5px" }}
+            loading={this.state.openLoading}
           >
             Open
           </Button>

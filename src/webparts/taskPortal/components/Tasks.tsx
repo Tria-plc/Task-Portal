@@ -36,6 +36,8 @@ class Tasks extends React.Component<ITasksProps, ITasksState> {
     const viewFields = `<ViewFields>
                           <FieldRef Name='Id' />
                           <FieldRef Name='Title' />
+                          <FieldRef Name='Message' />
+                          <FieldRef Name='u36w' />
                           <FieldRef Name='AssignedToId' />
                           <FieldRef Name='AssignedTo' />
                           <FieldRef Name='Created' />
@@ -56,17 +58,21 @@ class Tasks extends React.Component<ITasksProps, ITasksState> {
 
   public render() {
     return (
-      <Table
-        columns={TaskColumns(this.taskService, this.props.context)}
-        dataSource={this.state.tasks}
-        loading={this.state.isLoading}
-        rowClassName={this.rowClassNameFn}
-        pagination={{
-          defaultPageSize: 10,
-          showSizeChanger: true,
-          pageSizeOptions: ["10", "20", "30"],
-        }}
-      />
+      <div className="d-flex flex-column justify-content-center align-items-center mx-auto" style={{width:"80%"}}>
+        <h4>My Tasks</h4>
+        <Table
+          columns={TaskColumns(this.taskService, this.props.context)}
+          dataSource={this.state.tasks}
+          loading={this.state.isLoading}
+          rowClassName={this.rowClassNameFn}
+          pagination={{
+            defaultPageSize: 10,
+            showSizeChanger: true,
+            pageSizeOptions: ["10", "20", "30"],
+          }}
+          className="w-100"
+        />
+      </div>
     );
   }
 }
