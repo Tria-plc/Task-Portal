@@ -2,14 +2,20 @@ import * as React from "react";
 import TaskServices from "../services/TaskServices";
 import TaskColumnsButtons from "./TaskColumnsButtons";
 import { renderStatus } from "./commonService";
+import SPService from "./SPServices";
+import { getDepartments } from "./deptsAdFetch";
 
-export const TaskColumns = (service: TaskServices, context) => [
+export const TaskColumns = (
+  service: TaskServices,
+  spService: SPService,
+  context
+) => [
   {
     title: "Title",
     dataIndex: "Title",
     render: (text, props) => {
       // return props.Title;
-      return props.Message?props.Message:props.u36w;
+      return props.Message ? props.Message : props.u36w;
     },
   },
   {
@@ -23,7 +29,7 @@ export const TaskColumns = (service: TaskServices, context) => [
     title: "Task Status",
     dataIndex: "Status",
     render: (text, props) => {
-      console.log(props);
+      console.log("propsssssssss", props);
       return renderStatus(props.Status);
     },
   },
@@ -32,7 +38,12 @@ export const TaskColumns = (service: TaskServices, context) => [
     dataIndex: "",
     render: (text, props) => {
       return (
-        <TaskColumnsButtons service={service} data={props} context={context} />
+        <TaskColumnsButtons
+          service={service}
+          data={props}
+          context={context}
+          spService={spService}
+        />
       );
     },
   },

@@ -1,6 +1,7 @@
 import * as React from "react";
 import * as ReactDom from "react-dom";
 import { Version } from "@microsoft/sp-core-library";
+import SPService from "./components/SPServices";
 import {
   BaseClientSideWebPart,
   IPropertyPaneConfiguration,
@@ -21,6 +22,7 @@ export default class TaskPortalWebPart extends BaseClientSideWebPart<ITaskPortal
       TaskPortal,
       {
         context: this.context,
+        spService: new SPService(this.context),
       }
     );
 

@@ -3,9 +3,11 @@ import { Table } from "antd";
 
 import TaskServices from "../services/TaskServices";
 import { TaskColumns } from "./TaskColumns";
+import SPService from "./SPServices";
 import { WebPartContext } from "@microsoft/sp-webpart-base";
 export interface ITasksProps {
   context: WebPartContext;
+  spService: SPService;
 }
 
 export interface ITasksState {
@@ -58,10 +60,17 @@ class Tasks extends React.Component<ITasksProps, ITasksState> {
 
   public render() {
     return (
-      <div className="d-flex flex-column justify-content-center align-items-center mx-auto" style={{width:"80%"}}>
+      <div
+        className="d-flex flex-column justify-content-center align-items-center mx-auto"
+        style={{ width: "80%" }}
+      >
         <h4>My Tasks</h4>
         <Table
-          columns={TaskColumns(this.taskService, this.props.context)}
+          columns={TaskColumns(
+            this.taskService,
+            this.props.spService,
+            this.props.context
+          )}
           dataSource={this.state.tasks}
           loading={this.state.isLoading}
           rowClassName={this.rowClassNameFn}
