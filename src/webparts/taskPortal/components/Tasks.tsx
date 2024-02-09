@@ -1,10 +1,35 @@
 import * as React from "react";
 import { Table } from "antd";
-
 import TaskServices from "../services/TaskServices";
 import { TaskColumns } from "./TaskColumns";
 import SPService from "./SPServices";
 import { WebPartContext } from "@microsoft/sp-webpart-base";
+
+const styles = {
+  customTable: {
+    width: "100%",
+    margin: "20px",
+    border: "1px solid #e8e8e8",
+    borderRadius: "8px",
+    boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
+  },
+  tableHeader: {
+    backgroundColor: "#f0f0f0",
+    borderBottom: "2px solid #ddd",
+  },
+  evenRow: {
+    backgroundColor: "#f9f9f9",
+  },
+  hoverRow: {
+    backgroundColor: "#e6f7ff",
+    cursor: "pointer",
+  },
+  pagination: {
+    margin: "10px 0",
+    textAlign: "right",
+  },
+};
+
 export interface ITasksProps {
   context: WebPartContext;
   spService: SPService;
@@ -79,7 +104,7 @@ class Tasks extends React.Component<ITasksProps, ITasksState> {
             showSizeChanger: true,
             pageSizeOptions: ["10", "20", "30"],
           }}
-          className="w-100"
+          style={styles.customTable as React.CSSProperties}
         />
       </div>
     );
