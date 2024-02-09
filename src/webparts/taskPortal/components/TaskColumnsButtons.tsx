@@ -97,11 +97,15 @@ class TaskColumnsButtons extends React.Component<
         this.state.selectedDepartment
       );
       console.log("userDep", userDep);
+      console.log("this.props", this.props);
+      const prevAssignedToID = this.props.data.AssignedToId;
+      console.log("prevAssignedTo", prevAssignedToID);
       this.props.service
         .updateItem(
           "Form Associated Tasks",
           {
             AssignedToId: userDep.Id,
+            PreviouslyAssignedToId: prevAssignedToID,
           },
           this.props.data.Id
         )
