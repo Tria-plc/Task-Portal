@@ -4,6 +4,7 @@ import {
   SPHttpClient,
   ISPHttpClientOptions,
 } from "@microsoft/sp-http";
+import * as $ from "jquery";
 
 const getHeader = {
   headers: {
@@ -35,6 +36,7 @@ const updateHeader = {
 export default class SPService {
   public description: string;
   public webUrl: string;
+  loggedUserId = this.context.pageContext.legacyPageContext.userId;
 
   constructor(private context: WebPartContext) {
     console.log(
@@ -152,6 +154,163 @@ export default class SPService {
               return response;
             });
         }
+      });
+  }
+
+  getFormDigest(siteCollUrl = null) {
+    let restUrl = `${this.webUrl}/_api/contextinfo`;
+    if (siteCollUrl) {
+      restUrl = `${siteCollUrl}/_api/contextinfo`;
+    }
+
+    return $.ajax({
+      url: restUrl,
+      type: "POST",
+      headers: {
+        Accept: "application/json;odata=verbose",
+        "Content-Type": "application/json;odata=verbose",
+      },
+      data: "",
+      success: function (data) {
+        return data;
+      },
+      error: function (xhr) {
+        console.log(xhr.status + ": " + xhr.statusText);
+      },
+    });
+  }
+
+  getFileBuffer(file) {
+    var deferred = $.Deferred();
+    var reader = new FileReader();
+    reader.onloadend = function (e: any) {
+      deferred.resolve(e.target.result);
+    };
+    reader.onerror = function (e: any) {
+      deferred.reject(e.target.error);
+    };
+    reader.readAsArrayBuffer(file.originFileObj);
+    return deferred.promise();
+  }
+
+  async postFileByServerRelativeUrl(serverRelativeUrl, file): Promise<any> {
+    const fileName = file.name;
+
+    const fetchedDigest = await this.getFormDigest();
+    const formDigestValue =
+      fetchedDigest.d.GetContextWebInformation.FormDigestValue;
+    const url: string =
+      this.webUrl +
+      "/_api/web/getFolderByServerRelativeUrl('" +
+      serverRelativeUrl +
+      "')/files/add(url='" +
+      fileName +
+      "',overwrite=true)?$expand=ListItemAllFields";
+
+    const arrayBuffer = await this.getFileBuffer(file);
+
+    return $.ajax({
+      url: url,
+      type: "POST",
+      headers: {
+        accept: "application/json;odata=verbose",
+        "X-RequestDigest": formDigestValue,
+      },
+      data: arrayBuffer,
+      processData: false,
+      success: function (data) {
+        return data;
+      },
+      error: function (xhr) {
+        throw new Error(`error`);
+      },
+    });
+  }
+
+  get(url: string, check: Boolean = false): Promise<any> {
+    return this.context.spHttpClient
+      .get(url, SPHttpClient.configurations.v1, {
+        headers: getHeader.headers,
+      })
+      .then(async (response) => {
+        return response.json().then((json) => {
+          return json;
+        });
+      })
+      .catch((err) => {
+        return err;
+      });
+  }
+
+  getFilteredItems(
+    listName: string,
+    query,
+    siteUrl = this.webUrl
+  ): Promise<any> {
+    const url: string =
+      siteUrl + "/_api/web/lists/getByTitle('" + listName + "')/items" + query;
+
+    return this.get(url)
+      .then((result) => {
+        return result;
+      })
+      .catch((err) => {
+        throw new Error(`error`);
+      });
+  }
+
+  updateItem(listName: string, data: any, id, toJson = true): Promise<any> {
+    const url: string =
+      this.webUrl +
+      "/_api/web/lists/getByTitle('" +
+      listName +
+      "')/items(" +
+      id +
+      ")";
+    const options: ISPHttpClientOptions = {
+      headers: updateHeader.headers,
+      body: data,
+    };
+    return this.post(url, options, toJson)
+      .then((result) => {
+        return result;
+      })
+      .catch((err) => {
+        throw err;
+      });
+  }
+
+  deleteItem(listName: string, id, webUrl = this.webUrl) {
+    const url: string =
+      webUrl +
+      "/_api/web/lists/getByTitle('" +
+      listName +
+      "')/items(" +
+      id +
+      ")";
+    const options: ISPHttpClientOptions = {
+      headers: deleteHeader.headers,
+    };
+    return this.context.spHttpClient
+      .post(url, SPHttpClient.configurations.v1, options)
+      .then((response) => {
+        return response.json().catch((err) => {
+          return response;
+        });
+      })
+      .catch((err) => {
+        throw new Error(err);
+      });
+  }
+
+  getLibraryInformationByName(libraryName: string): Promise<any> {
+    const restUrl = `${this.webUrl}/_api/web/folders?$filter=Name eq '${libraryName}'`;
+    return this.get(restUrl)
+      .then((json) => {
+        return json;
+      })
+      .catch((err) => {
+        return err;
       });
   }
 }

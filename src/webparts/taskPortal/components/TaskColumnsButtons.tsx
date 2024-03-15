@@ -147,10 +147,8 @@ class TaskColumnsButtons extends React.Component<
             Open
           </Button>
           <Button
-            type="primary"
             onClick={this.onReassignButtonClick}
             style={{ marginRight: "5px" }}
-            loading={this.state.openLoading}
           >
             Reassign
           </Button>
