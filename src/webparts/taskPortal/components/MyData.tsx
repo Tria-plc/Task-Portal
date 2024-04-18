@@ -73,10 +73,16 @@ class MyData extends React.Component<IMyDataProps, IMyDataState> {
   async uploadNewSignature() {
     const file = this.state.files[0];
     console.log("file", file);
+
+    const username = this.props.spService.webLoginName;
+
     this.props.spService
       .postFileByServerRelativeUrl(
         this.state.documentLibraryDetails.ServerRelativeUrl,
-        file
+        file,
+        `${username.split("\\")[1]}.${
+          file.name.split(".")[file.name.split(".").length - 1]
+        }`
       )
       .then(() => {
         this.setState({ showUploadModal: false });

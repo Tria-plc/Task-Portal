@@ -37,6 +37,7 @@ export default class SPService {
   public description: string;
   public webUrl: string;
   loggedUserId = this.context.pageContext.legacyPageContext.userId;
+  webLoginName=this.context.pageContext.user.loginName
 
   constructor(private context: WebPartContext) {
     console.log(
@@ -193,8 +194,8 @@ export default class SPService {
     return deferred.promise();
   }
 
-  async postFileByServerRelativeUrl(serverRelativeUrl, file): Promise<any> {
-    const fileName = file.name;
+  async postFileByServerRelativeUrl(serverRelativeUrl, file,name?): Promise<any> {
+    const fileName = name || file.name;
 
     const fetchedDigest = await this.getFormDigest();
     const formDigestValue =
