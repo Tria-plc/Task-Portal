@@ -105,7 +105,7 @@ class Tasks extends React.Component<ITasksProps, ITasksState> {
       >
         <div className="row p-2 w-100">
           <div className="col-4"></div>
-          <h4 className="col-4 text-center">My Tasks</h4>
+          <h4 className="col-4 text-center">{localStorage.getItem("lang") === "am" ? "የእኔ ተግባራት" : "My Tasks"}</h4>
           <div className="col-4">
             <Button
               type="primary"
@@ -114,7 +114,7 @@ class Tasks extends React.Component<ITasksProps, ITasksState> {
               }}
               className="float-right"
             >
-              My Signature
+              {localStorage.getItem("lang") === "am" ? "የእኔ ፊርማ" : "My Signature"}
             </Button>
           </div>
         </div>
@@ -138,7 +138,7 @@ class Tasks extends React.Component<ITasksProps, ITasksState> {
         <Modal
           visible={this.state.showSigntureModal}
           onCancel={() => this.setState({ showSigntureModal: false })}
-          title={"My Signature"}
+          title={`${localStorage.getItem("lang") === "am" ? "የእኔ ፊርማ" : "My Signature"}`}
           width={1000}
           maskClosable={false}
           footer={[]}

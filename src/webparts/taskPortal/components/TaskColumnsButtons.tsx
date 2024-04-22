@@ -144,32 +144,32 @@ class TaskColumnsButtons extends React.Component<
             style={{ marginRight: "5px" }}
             loading={this.state.openLoading}
           >
-            Open
+            {localStorage.getItem("lang") === "am" ? "ክፈት" : "Open"}
           </Button>
           <Button
             onClick={this.onReassignButtonClick}
             style={{ marginRight: "5px" }}
           >
-            Reassign
+            {localStorage.getItem("lang") === "am" ? "እንደገና መመደብ" : "Reassign"}
           </Button>
           {this.props.data.AssignedToId !==
             this.props.context.pageContext.legacyPageContext.userId && (
             <Popconfirm
-              title="Are you sure？"
-              okText="Yes"
-              cancelText="No"
+              title={localStorage.getItem("lang") === "am" ? "እርግጠኛ ነዎት?" : "Are you sure？"}
+              okText={localStorage.getItem("lang") === "am" ? "አዎ" : "Yes"}
+              cancelText={localStorage.getItem("lang") === "am" ? "አይ" : "No"}
               onConfirm={this.claimTask}
             >
-              <Button>Claim</Button>
+              <Button>{localStorage.getItem("lang") === "am" ? "የይገባኛል ጥያቄ" : "Claim"}</Button>
             </Popconfirm>
           )}
           <Modal
-            title="Reassign Task"
+            title={localStorage.getItem("lang") === "am" ? "ተግባር እንደገና ይመድቡ" : "Reassign Task"}
             visible={this.state.showModal}
             onOk={this.handleModalOk}
             onCancel={this.handleModalCancel}
           >
-            <p>Task Information: {this.props.data.TaskInfo}</p>
+            <p>{localStorage.getItem("lang") === "am" ? "የተግባር መረጃ" : "Task Information"}: {this.props.data.TaskInfo}</p>
 
             <Select
               style={{ width: "100%" }}

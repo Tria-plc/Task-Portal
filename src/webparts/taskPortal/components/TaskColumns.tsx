@@ -11,7 +11,7 @@ export const TaskColumns = (
   context
 ) => [
   {
-    title: "Title",
+    title: `${localStorage.getItem("lang") === "am" ? "ርዕስ" : "Title"}`,
     dataIndex: "Title",
     render: (text, props) => {
       // return props.Title;
@@ -19,14 +19,14 @@ export const TaskColumns = (
     },
   },
   {
-    title: "Date",
+    title: `${localStorage.getItem("lang") === "am" ? "ቀን" : "Date"}`,
     dataIndex: "Created",
     render: (text, props) => {
       return new Date(props.Created).toLocaleDateString();
     },
   },
   {
-    title: "Task Status",
+    title: `${localStorage.getItem("lang") === "am" ? "የተግባር ሁኔታ" : "Task Status"}`,
     dataIndex: "Status",
     render: (text, props) => {
       console.log("propsssssssss", props);
@@ -34,7 +34,7 @@ export const TaskColumns = (
     },
   },
   {
-    title: "Action",
+    title: `${localStorage.getItem("lang") === "am" ? "ድርጊት" : "Action"}`,
     dataIndex: "",
     render: (text, props) => {
       return (
