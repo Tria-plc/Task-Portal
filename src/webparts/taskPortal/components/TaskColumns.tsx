@@ -26,7 +26,9 @@ export const TaskColumns = (
     },
   },
   {
-    title: `${localStorage.getItem("lang") === "am" ? "የተግባር ሁኔታ" : "Task Status"}`,
+    title: `${
+      localStorage.getItem("lang") === "am" ? "የተግባር ሁኔታ" : "Task Status"
+    }`,
     dataIndex: "Status",
     render: (text, props) => {
       console.log("propsssssssss", props);

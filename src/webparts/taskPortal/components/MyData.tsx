@@ -114,7 +114,9 @@ class MyData extends React.Component<IMyDataProps, IMyDataState> {
             className="d-flex flex-column justify-content-center align-items-center mx-auto"
           >
             <small className="text-danger">
-            {localStorage.getItem("lang") === "am" ? "ምንም ፊርማ አልሰቀሉም!" : "You haven't uploaded any signature!"}
+              {localStorage.getItem("lang") === "am"
+                ? "ምንም ፊርማ አልሰቀሉም!"
+                : "You haven't uploaded any signature!"}
             </small>
             <Button
               icon="file-add"
@@ -123,7 +125,9 @@ class MyData extends React.Component<IMyDataProps, IMyDataState> {
               }}
               className="mt-2"
             >
-              {localStorage.getItem("lang") === "am" ? "ሰቀላ ፊርማ" : "Upload Signature"}
+              {localStorage.getItem("lang") === "am"
+                ? "ሰቀላ ፊርማ"
+                : "Upload Signature"}
             </Button>
           </div>
         )}
@@ -131,7 +135,11 @@ class MyData extends React.Component<IMyDataProps, IMyDataState> {
         <Modal
           visible={this.state.showUploadModal}
           onCancel={() => this.setState({ showUploadModal: false })}
-          title={`${localStorage.getItem("lang") === "am" ? "አዲስ ፊርማ ስቀል" : "Upload New Signature"}`}
+          title={
+            localStorage.getItem("lang") === "am"
+              ? "አዲስ ፊርማ ስቀል"
+              : "Upload New Signature"
+          }
           width={1000}
           maskClosable={false}
           onOk={this.uploadNewSignature}

@@ -155,25 +155,44 @@ class TaskColumnsButtons extends React.Component<
           {this.props.data.AssignedToId !==
             this.props.context.pageContext.legacyPageContext.userId && (
             <Popconfirm
-              title={localStorage.getItem("lang") === "am" ? "እርግጠኛ ነዎት?" : "Are you sure？"}
+              title={
+                localStorage.getItem("lang") === "am"
+                  ? "እርግጠኛ ነዎት?"
+                  : "Are you sure？"
+              }
               okText={localStorage.getItem("lang") === "am" ? "አዎ" : "Yes"}
               cancelText={localStorage.getItem("lang") === "am" ? "አይ" : "No"}
               onConfirm={this.claimTask}
             >
-              <Button>{localStorage.getItem("lang") === "am" ? "የይገባኛል ጥያቄ" : "Claim"}</Button>
+              <Button>
+                {localStorage.getItem("lang") === "am" ? "የይገባኛል ጥያቄ" : "Claim"}
+              </Button>
             </Popconfirm>
           )}
           <Modal
-            title={localStorage.getItem("lang") === "am" ? "ተግባር እንደገና ይመድቡ" : "Reassign Task"}
+            title={
+              localStorage.getItem("lang") === "am"
+                ? "ተግባር እንደገና ይመድቡ"
+                : "Reassign Task"
+            }
             visible={this.state.showModal}
             onOk={this.handleModalOk}
             onCancel={this.handleModalCancel}
           >
-            <p>{localStorage.getItem("lang") === "am" ? "የተግባር መረጃ" : "Task Information"}: {this.props.data.TaskInfo}</p>
+            <p>
+              {localStorage.getItem("lang") === "am"
+                ? "የተግባር መረጃ"
+                : "Task Information"}
+              : {this.props.data.TaskInfo}
+            </p>
 
             <Select
               style={{ width: "100%" }}
-              placeholder="Select Department"
+              placeholder={
+                localStorage.getItem("lang") === "am"
+                  ? "ክፍል ይምረጡ"
+                  : "Select Department"
+              }
               onChange={this.handleDepartmentChange}
             >
               {this.state.departments.map((department) => (

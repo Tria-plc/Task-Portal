@@ -50,7 +50,9 @@ class UploadedFilesListAction extends React.Component<
             message.success("Link Copied!");
           }}
         >
-          <Button type="primary">{localStorage.getItem("lang") === "am" ? "አገናኝ ቅዳ" : "Copy Link"}</Button>
+          <Button type="primary">
+            {localStorage.getItem("lang") === "am" ? "አገናኝ ቅዳ" : "Copy Link"}
+          </Button>
         </CopyToClipboard>
         <a
           className="mx-2"
@@ -86,7 +88,7 @@ class UploadedFilesListAction extends React.Component<
                 });
               }}
             >
-              ${localStorage.getItem("lang") === "am" ? "ሰርዝ" : "Cancel"}
+              {localStorage.getItem("lang") === "am" ? "ሰርዝ" : "Cancel"}
             </Button>,
             <Button type="danger" onClick={this.deleteAttachment}>
               {localStorage.getItem("lang") === "am" ? "ሰርዝ" : "Delete"}
@@ -94,7 +96,9 @@ class UploadedFilesListAction extends React.Component<
           ]}
           destroyOnClose={true}
         >
-          {localStorage.getItem("lang") === "am" ? "ፊርማ ይሰረዝ?" : "Delete Signature ?"}
+          {localStorage.getItem("lang") === "am"
+            ? "ፊርማ ይሰረዝ?"
+            : "Delete Signature ?"}
         </Modal>
       </div>
     );

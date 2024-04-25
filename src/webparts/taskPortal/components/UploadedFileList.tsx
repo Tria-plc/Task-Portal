@@ -4,12 +4,12 @@ import UploadedFilesListAction from "./UploadedFilesListAction";
 
 const columns = (service, ServerRelativeUrl, refreshPage) => [
   {
-    title: "File Name",
+    title: `${localStorage.getItem("lang") === "am" ? "የመዝገብ ስም" : "File Name"}`,
     dataIndex: "FileLeafRef",
     width: "60%",
   },
   {
-    title: "Actions",
+    title: `${localStorage.getItem("lang") === "am" ? "ድርጊት" : "Action"}`,
     dataIndex: "",
     render: (text, props) => {
       return (
