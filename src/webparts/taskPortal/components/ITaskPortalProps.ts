@@ -1,6 +1,6 @@
 import { WebPartContext } from "@microsoft/sp-webpart-base";
-
+import SPService from "./SPServices";
 export interface ITaskPortalProps {
   context: WebPartContext;
-  listId: any;
+  spService: SPService;
 }
