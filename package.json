@@ -16,13 +16,14 @@
     "@microsoft/sp-lodash-subset": "~1.4.0",
     "@microsoft/sp-office-ui-fabric-core": "~1.4.0",
     "@microsoft/sp-webpart-base": "~1.4.0",
-    "@pnp/sp": "^2.0.0-4",
     "@types/es6-promise": "0.0.33",
     "@types/react": "15.6.6",
     "@types/react-dom": "15.5.6",
     "@types/webpack-env": "1.13.1",
     "antd": "^3.2.2",
+    "jquery": "^3.6.0",
     "react": "15.6.2",
+    "react-copy-to-clipboard": "^5.0.1",
     "react-dom": "15.6.2"
   },
   "resolutions": {
