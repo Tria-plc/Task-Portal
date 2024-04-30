@@ -35,6 +35,7 @@ import MyData from "./MyData";
 export interface ITasksProps {
   context: WebPartContext;
   spService: SPService;
+  words: any;
 }
 
 export interface ITasksState {
@@ -44,7 +45,7 @@ export interface ITasksState {
 }
 
 class Tasks extends React.Component<ITasksProps, ITasksState> {
-  public constructor(props) {
+  public constructor(props: any) {
     super(props);
 
     this.state = {
@@ -106,7 +107,7 @@ class Tasks extends React.Component<ITasksProps, ITasksState> {
         <div className="row p-2 w-100">
           <div className="col-4"></div>
           <h4 className="col-4 text-center">
-            {localStorage.getItem("lang") === "am" ? "የእኔ ተግባራት" : "My Tasks"}
+            {this.props.words.MyTasks}
           </h4>
           <div className="col-4">
             <Button
@@ -116,9 +117,10 @@ class Tasks extends React.Component<ITasksProps, ITasksState> {
               }}
               className="float-right"
             >
-              {localStorage.getItem("lang") === "am"
-                ? "የእኔ ፊርማ"
-                : "My Signature"}
+              {/*
+             {this.props.words.Signature}
+             */}
+              {this.props.words.Signature}
             </Button>
           </div>
         </div>
@@ -126,7 +128,8 @@ class Tasks extends React.Component<ITasksProps, ITasksState> {
           columns={TaskColumns(
             this.taskService,
             this.props.spService,
-            this.props.context
+            this.props.context,
+            this.props.words
           )}
           dataSource={this.state.tasks}
           loading={this.state.isLoading}
@@ -138,13 +141,10 @@ class Tasks extends React.Component<ITasksProps, ITasksState> {
           }}
           className="w-100"
         />
-
         <Modal
           visible={this.state.showSigntureModal}
           onCancel={() => this.setState({ showSigntureModal: false })}
-          title={
-            localStorage.getItem("lang") === "am" ? "የእኔ ፊርማ" : "My Signature"
-          }
+          title={this.props.words.Signature}
           width={1000}
           maskClosable={false}
           footer={[]}
@@ -152,6 +152,7 @@ class Tasks extends React.Component<ITasksProps, ITasksState> {
           <MyData
             context={this.props.context}
             spService={this.props.spService}
+            words={this.props.words}
           />
         </Modal>
       </div>

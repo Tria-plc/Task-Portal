@@ -11,6 +11,7 @@ export interface ITaskColumnsButtonsProps {
   service: TaskServices;
   context: WebPartContext;
   spService: SPService;
+  words: any;
 }
 
 class TaskColumnsButtons extends React.Component<
@@ -144,55 +145,41 @@ class TaskColumnsButtons extends React.Component<
             style={{ marginRight: "5px" }}
             loading={this.state.openLoading}
           >
-            {localStorage.getItem("lang") === "am" ? "ክፈት" : "Open"}
+            {this.props.words.Open}
           </Button>
           <Button
             onClick={this.onReassignButtonClick}
             style={{ marginRight: "5px" }}
           >
-            {localStorage.getItem("lang") === "am" ? "እንደገና መመደብ" : "Reassign"}
+            {this.props.words.Reassign}
           </Button>
           {this.props.data.AssignedToId !==
             this.props.context.pageContext.legacyPageContext.userId && (
-            <Popconfirm
-              title={
-                localStorage.getItem("lang") === "am"
-                  ? "እርግጠኛ ነዎት?"
-                  : "Are you sure？"
-              }
-              okText={localStorage.getItem("lang") === "am" ? "አዎ" : "Yes"}
-              cancelText={localStorage.getItem("lang") === "am" ? "አይ" : "No"}
-              onConfirm={this.claimTask}
-            >
-              <Button>
-                {localStorage.getItem("lang") === "am" ? "የይገባኛል ጥያቄ" : "Claim"}
-              </Button>
-            </Popconfirm>
-          )}
+              <Popconfirm
+                title={this.props.words.AreYouSure}
+                okText={this.props.words.Yes}
+                cancelText={this.props.words.No}
+                onConfirm={this.claimTask}
+              >
+                <Button>
+                  {this.props.words.Claim}
+                </Button>
+              </Popconfirm>
+            )}
           <Modal
-            title={
-              localStorage.getItem("lang") === "am"
-                ? "ተግባር እንደገና ይመድቡ"
-                : "Reassign Task"
-            }
+            title={this.props.words.ReassignTask}
             visible={this.state.showModal}
             onOk={this.handleModalOk}
             onCancel={this.handleModalCancel}
           >
             <p>
-              {localStorage.getItem("lang") === "am"
-                ? "የተግባር መረጃ"
-                : "Task Information"}
+              {this.props.words.TaskInformation}
               : {this.props.data.TaskInfo}
             </p>
 
             <Select
               style={{ width: "100%" }}
-              placeholder={
-                localStorage.getItem("lang") === "am"
-                  ? "ክፍል ይምረጡ"
-                  : "Select Department"
-              }
+              placeholder={this.props.words.SelectDepartment}
               onChange={this.handleDepartmentChange}
             >
               {this.state.departments.map((department) => (
