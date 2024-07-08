@@ -37,7 +37,7 @@ export default class SPService {
   public description: string;
   public webUrl: string;
   loggedUserId = this.context.pageContext.legacyPageContext.userId;
-  webLoginName=this.context.pageContext.user.loginName
+  webLoginName = this.context.pageContext.user.loginName;
 
   constructor(private context: WebPartContext) {
     console.log(
@@ -51,9 +51,9 @@ export default class SPService {
 
   getDepartmentsFromAD(Ou: string) {
     let depdata = [];
-
+    const port = window.location.protocol == "https:" ? 2027 : 2023;
     return (
-      fetch(`${window.location.origin}:2023/adexplorer/getorgstr?ou=` + Ou)
+      fetch(`${window.location.origin}:${port}/adexplorer/getorgstr?ou=` + Ou)
         // return fetch(` http://smart:2023/adexplorer/getorgstr?ou=` + Ou)
         .then((response) => response.json())
         .then((data) => {
@@ -194,7 +194,11 @@ export default class SPService {
     return deferred.promise();
   }
 
-  async postFileByServerRelativeUrl(serverRelativeUrl, file,name?): Promise<any> {
+  async postFileByServerRelativeUrl(
+    serverRelativeUrl,
+    file,
+    name?
+  ): Promise<any> {
     const fileName = name || file.name;
 
     const fetchedDigest = await this.getFormDigest();
