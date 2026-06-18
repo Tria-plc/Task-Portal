@@ -8,6 +8,7 @@ export interface IUploadFileListActionProps {
   item: any;
   ServerRelativeUrl: any;
   refreshPage: any;
+  words: any;
 }
 
 export interface IUploadFileListActionState {
@@ -47,11 +48,13 @@ class UploadedFilesListAction extends React.Component<
         <CopyToClipboard
           text={this.state.signatureLink}
           onCopy={() => {
-            message.success("Link Copied!");
+            message.success(this.props.words.LinkCopied);
           }}
         >
           <Button type="primary">
-            {localStorage.getItem("lang") === "am" ? "አገናኝ ቅዳ" : "Copy Link"}
+            {/*this.props.words.CopyLink */}
+            {this.props.words.CopyLink}
+
           </Button>
         </CopyToClipboard>
         <a
@@ -59,7 +62,8 @@ class UploadedFilesListAction extends React.Component<
           href={`${this.props.item.EncodedAbsUrl}?web=0`}
           target="_blank"
         >
-          {localStorage.getItem("lang") === "am" ? "ይመልከቱ" : "View"}
+          {this.props.words.View}
+
         </a>
         <a
           className="mx-2"
@@ -69,7 +73,8 @@ class UploadedFilesListAction extends React.Component<
             });
           }}
         >
-          {localStorage.getItem("lang") === "am" ? "ሰርዝ" : "Delete"}
+          {this.props.words.Delete}
+
         </a>
 
         <Modal
@@ -88,17 +93,20 @@ class UploadedFilesListAction extends React.Component<
                 });
               }}
             >
-              {localStorage.getItem("lang") === "am" ? "ሰርዝ" : "Cancel"}
+              {this.props.words.Cancel}
+
             </Button>,
             <Button type="danger" onClick={this.deleteAttachment}>
-              {localStorage.getItem("lang") === "am" ? "ሰርዝ" : "Delete"}
+              {this.props.words.Delete}
+
             </Button>,
           ]}
           destroyOnClose={true}
         >
-          {localStorage.getItem("lang") === "am"
-            ? "ፊርማ ይሰረዝ?"
-            : "Delete Signature ?"}
+          {/*
+            this.props.words.deleteSignature
+        */}
+          {this.props.words.deleteSignature}
         </Modal>
       </div>
     );

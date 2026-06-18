@@ -8,6 +8,7 @@ import ImageUpload from "./ImageDragger";
 export interface IMyDataProps {
   context: WebPartContext;
   spService: SPService;
+  words: any;
 }
 
 export interface IMyDataState {
@@ -80,8 +81,7 @@ class MyData extends React.Component<IMyDataProps, IMyDataState> {
       .postFileByServerRelativeUrl(
         this.state.documentLibraryDetails.ServerRelativeUrl,
         file,
-        `${username.split("\\")[1]}.${
-          file.name.split(".")[file.name.split(".").length - 1]
+        `${username.split("\\")[1]}.${file.name.split(".")[file.name.split(".").length - 1]
         }`
       )
       .then(() => {
@@ -114,9 +114,7 @@ class MyData extends React.Component<IMyDataProps, IMyDataState> {
             className="d-flex flex-column justify-content-center align-items-center mx-auto"
           >
             <small className="text-danger">
-              {localStorage.getItem("lang") === "am"
-                ? "ምንም ፊርማ አልሰቀሉም!"
-                : "You haven't uploaded any signature!"}
+              {this.props.words.HaveNotUploadedSignature}
             </small>
             <Button
               icon="file-add"
@@ -125,9 +123,7 @@ class MyData extends React.Component<IMyDataProps, IMyDataState> {
               }}
               className="mt-2"
             >
-              {localStorage.getItem("lang") === "am"
-                ? "ሰቀላ ፊርማ"
-                : "Upload Signature"}
+              {this.props.words.UploadSignature}
             </Button>
           </div>
         )}
@@ -135,17 +131,14 @@ class MyData extends React.Component<IMyDataProps, IMyDataState> {
         <Modal
           visible={this.state.showUploadModal}
           onCancel={() => this.setState({ showUploadModal: false })}
-          title={
-            localStorage.getItem("lang") === "am"
-              ? "አዲስ ፊርማ ስቀል"
-              : "Upload New Signature"
-          }
+          title={this.props.words.UploadNewSignature}
           width={1000}
           maskClosable={false}
           onOk={this.uploadNewSignature}
           okText="Save"
         >
           <ImageUpload
+            words={this.props.words}
             fileChangeHandler={this.fileChangeHandler}
             removeAttachment={(event) => {
               this.setState({ files: [] });
